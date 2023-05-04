@@ -29,7 +29,7 @@ interface IMessage {
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent extends CoreComponent implements OnInit, AfterViewChecked {
     private readonly previewApiCallDelayInMs: number = 3000;
@@ -62,12 +62,15 @@ export class AppComponent extends CoreComponent implements OnInit, AfterViewChec
                         [data.sourceElementCodename, data.requiredElementCodename],
                         (changedElementCodenames) => {
                             // source element value changed
-                            this.checkForNewValue();
+                            this.checkForNewValue({
+                                isInitialCheck: false,
+                                changedElementCodenames: changedElementCodenames
+                            });
                             super.detectChanges();
                         }
                     );
 
-                    this.checkForNewValue();
+                    this.checkForNewValue({ isInitialCheck: true, changedElementCodenames: [] });
 
                     super.detectChanges();
                 },
@@ -103,13 +106,26 @@ export class AppComponent extends CoreComponent implements OnInit, AfterViewChec
         }
     }
 
-    public checkForNewValue(): void {
+    public checkForNewValue(config: { isInitialCheck: boolean; changedElementCodenames: string[] }): void {
         this.getSourceElementValue((sourceElementValue) => {
             this.currentSourceElementValueCodename = sourceElementValue?.[0]?.codename;
 
             if (this.currentSourceElementValueCodename?.toLowerCase() === this.elementData?.sourceElementValue) {
                 // element is required
                 // check the value of required element codename
+
+                let delayMs: number = 0;
+
+                if (!config.isInitialCheck) {
+                    if (
+                        config.changedElementCodenames
+                            .map((m) => m.toLowerCase())
+                            .includes(this.elementData?.requiredElementCodename ?? '')
+                    ) {
+                        delayMs = this.previewApiCallDelayInMs;
+                    }
+                }
+
                 super.subscribeToObservable(
                     of(undefined).pipe(
                         tap(() => {
@@ -122,7 +138,7 @@ export class AppComponent extends CoreComponent implements OnInit, AfterViewChec
 
                             super.detectChanges();
                         }),
-                        delay(this.previewApiCallDelayInMs),
+                        delay(delayMs),
                         switchMap(() => {
                             return this.isRequiredElementEmpty();
                         }),
