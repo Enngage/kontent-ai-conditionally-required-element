@@ -1,0 +1,95 @@
+@import './app/flex/flex';
+@import './app/positioning/pad';
+@import './app/positioning/push';
+@import './app/positioning/pull';
+
+@include flex();
+@include pad-utilities();
+@include push-utilities();
+@include pull-utilities();
+
+$linkColor: #db3c00;
+$linkColorHover: #953000;
+$textColor: #525252;
+$textColorLight: #6f6f6f;
+$cardBackground: #fff;
+
+$warningBox: #fa860a;
+$warningBoxText: #ffffff;
+$errorBox: #db0000;
+$errorBoxText: #fff;
+$infoBox: #317041;
+$infoBoxText: #ffffff;
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: $textColor;
+}
+
+a {
+    color: $linkColor;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 16px;
+    letter-spacing: 0.1ch;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+
+    &:hover {
+        color: $linkColorHover;
+        text-decoration: underline;
+    }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    margin: 0;
+    font-weight: 500;
+    color: $textColor;
+}
+
+.card {
+    padding: 16px 24px;
+    background-color: $cardBackground;
+    box-shadow: rgb(0 0 0 / 3%) 0px 0px 8px, rgb(16 33 60 / 16%) 0px 8px 14px;
+    border-radius: 8px;
+
+    &.no-pad {
+        padding: 0px;
+    }
+}
+
+.light-text {
+    color: $textColorLight;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.w-cursor-pointer {
+    cursor: pointer;
+}
+
+.error-box {
+    padding: 8px 16px;
+    background-color: $errorBox;
+    color: $errorBoxText;
+    border-radius: 8px;
+}
+
+.info-box {
+    padding: 8px 16px;
+    background-color: $infoBox;
+    color: $infoBoxText;
+    border-radius: 8px;
+}
+
+.warning-box {
+    padding: 8px 16px;
+    background-color: $warningBox;
+    color: $warningBoxText;
+    border-radius: 8px;
+}
