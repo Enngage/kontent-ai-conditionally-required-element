@@ -117,6 +117,10 @@ export class AppComponent extends CoreComponent implements OnInit, AfterViewChec
                                 text: `Checking validity`,
                                 type: 'loading'
                             };
+
+                            this.kontentService.setValue(null);
+
+                            super.detectChanges();
                         }),
                         delay(this.previewApiCallDelayInMs),
                         switchMap(() => {
