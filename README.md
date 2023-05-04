@@ -47,8 +47,8 @@ We have collected notes on how to contribute to this project in [CONTRIBUTING.md
 
 Originally created by [@Enngage](https://github.com/Enngage)
 
-<a href="https://github.com/Enngage/kontent-kontent-ai-conditionally-required-element/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Enngage/kontent-kontent-ai-conditionally-required-element" />
+<a href="https://github.com/Enngage/kontent-ai-conditionally-required-element/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Enngage/kontent-ai-conditionally-required-element" />
 </a>
 
 ## License
