@@ -8,6 +8,8 @@
 @include push-utilities();
 @include pull-utilities();
 
+$primaryColor: #db3c00;
+
 $linkColor: #db3c00;
 $linkColorHover: #953000;
 $textColor: #525252;
@@ -16,7 +18,7 @@ $cardBackground: #fff;
 
 $warningBox: #fa860a;
 $warningBoxText: #ffffff;
-$errorBox: #db0000;
+$errorBox: #db3c00;
 $errorBoxText: #fff;
 $infoBox: #317041;
 $infoBoxText: #ffffff;
@@ -92,4 +94,28 @@ h5 {
     background-color: $warningBox;
     color: $warningBoxText;
     border-radius: 8px;
+}
+
+.lds-dual-ring {
+    display: inline-block;
+}
+.lds-dual-ring:after {
+    content: ' ';
+    display: block;
+    width: 16px;
+    height: 16px;
+    margin: 0px;
+    border-radius: 50%;
+    border: 6px solid $primaryColor;
+    border-color: $primaryColor transparent $primaryColor transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+}
+
+@keyframes lds-dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }

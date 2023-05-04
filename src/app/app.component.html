@@ -1,7 +1,14 @@
-<div *ngIf="infoMessage" class="info-box push-bottom push-top">
-    {{ infoMessage }}
+<div *ngIf="message && message.type === 'info'" class="info-box">
+    {{ message.text }}
 </div>
 
-<div *ngIf="errorMessage" class="error-box push-bottom push-top">
-    {{ errorMessage }}
+<div *ngIf="message && message.type === 'error'" class="error-box">
+    {{ message.text }}
+</div>
+
+<div *ngIf="message && message.type === 'loading'" libFlexRow [libFlexRowAlign]="'center'" [libFlexRowGap]="'16px'">
+    <div libFlexColumn>
+        <div class="lds-dual-ring"></div>
+    </div>
+    <div class="light-text" libFlexColumn libFlexFill>{{ message.text }}...</div>
 </div>

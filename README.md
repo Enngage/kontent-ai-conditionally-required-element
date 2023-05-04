@@ -4,7 +4,7 @@
 
 ## Description
 
-This custom element for [Kentico Kontent](https://kontent.ai) is used for rebuilding Open API references
+This custom element for [Kentico Kontent](https://kontent.ai) is used to make an element conditionally required based on values from other elements
 
 ## Deploy
 
@@ -26,15 +26,16 @@ You will need to add the custom element to a content type filling in the hosted 
 
 ```json
 {
-    "productionGhBranch": "main",
-    "previewGhBranch": "main-preview",
-    "azureFunctionUrl": "https://kontent-ai-api-reference-prod.azurewebsites.net/api/buildApiReferenceJson/{{apiReferenceCodename}}?code=xxx"
+    "requiredElementCodename": "author", // codename of element that should be required - only linked items field supported in this demo
+    "sourceElementCodename": "confirmation", // codename of element on which it depends if element is required - only multiple choice element supported in this demo
+    "sourceElementValue": "required", // value of the lement on which it depends if element is required - only multiple choice element supported in this demo
+    "previewApiKey": "x" // Preview API Key to read linked items field
 }
 ```
 
 ## What is Saved
 
-This custom element does not save any value
+This custom element saves either `null` or `1`
 
 ## Development
 

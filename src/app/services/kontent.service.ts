@@ -16,14 +16,22 @@ export interface ICustomElementContext {
     };
 }
 
-interface IElementInit {
+export interface IMultipleChoiceValue {
+    codename: string;
+    id: string;
+    name: string;
+}
+
+export interface IElementInit {
     isDisabled: boolean;
     value?: string;
     context: ICustomElementContext;
-    getElementValue: (elementCodename: string) => string | undefined;
+    getElementValue: (elementCodename: string, callback: (value: IMultipleChoiceValue[] | undefined) => void) => void;
+    observeElementChanges: (elementCodenames: string[], callback: (changedElementCodenames: string[]) => void) => void;
     requiredElementCodename: string;
     sourceElementCodename: string;
     sourceElementValue: string;
+    previewApiKey: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -46,10 +54,20 @@ export class KontentService {
                     context: context,
                     value: element.value,
                     isDisabled: element.disabled,
-                    getElementValue: (elementCodename) => CustomElement.getElementValue(elementCodename),
+                    getElementValue: (elementCodename, callback) => {
+                        return CustomElement.getElementValue(elementCodename, (value: any) => {
+                            callback(value);
+                        });
+                    },
+                    observeElementChanges: (elementCodenames, callback) => {
+                        return CustomElement.observeElementChanges(elementCodenames, (value: any) => {
+                            callback(value);
+                        });
+                    },
                     requiredElementCodename: element.config.requiredElementCodename,
                     sourceElementCodename: element.config.sourceElementCodename,
-                    sourceElementValue: element.config.sourceElementValue
+                    sourceElementValue: element.config.sourceElementValue,
+                    previewApiKey: element.config.previewApiKey,
                 });
             });
         } catch (error) {
